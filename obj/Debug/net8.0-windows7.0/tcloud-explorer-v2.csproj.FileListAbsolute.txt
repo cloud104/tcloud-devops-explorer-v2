@@ -1,0 +1,11 @@
+C:\code\MOBZize\obj\Debug\net8.0-windows7.0\MOBZize.FormNewFile.resources
+C:\code\MOBZize\obj\Debug\net8.0-windows7.0\MOBZize.FormNewFolder.resources
+C:\code\MOBZize\obj\Debug\net8.0-windows7.0\MOBZize.MainForm.resources
+C:\code\MOBZize\obj\Debug\net8.0-windows7.0\tcloud-explorer-v2.Properties.Resources.resources
+C:\code\MOBZize\obj\Debug\net8.0-windows7.0\tcloud-explorer-v2.csproj.GenerateResource.cache
+C:\code\MOBZize\obj\Debug\net8.0-windows7.0\tcloud-explorer-v2.GeneratedMSBuildEditorConfig.editorconfig
+C:\code\MOBZize\obj\Debug\net8.0-windows7.0\tcloud-explorer-v2.AssemblyInfoInputs.cache
+C:\code\MOBZize\obj\Debug\net8.0-windows7.0\tcloud-explorer-v2.AssemblyInfo.cs
+C:\code\MOBZize\obj\Debug\net8.0-windows7.0\tcloud-explorer-v2.csproj.CoreCompileInputs.cache
+C:\code\MOBZize\obj\Debug\net8.0-windows7.0\tcloud-explorer-v2.sourcelink.json
+C:\code\MOBZize\obj\Debug\net8.0-windows7.0\TCloudExplorer.MainForm.resources
