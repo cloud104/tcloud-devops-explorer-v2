@@ -326,28 +326,28 @@ namespace TCloudExplorer
             // _viewSmallIconMenuItem
             // 
             _viewSmallIconMenuItem.Name = "_viewSmallIconMenuItem";
-            _viewSmallIconMenuItem.Size = new Size(331, 36);
+            _viewSmallIconMenuItem.Size = new Size(308, 40);
             _viewSmallIconMenuItem.Text = "&Arquivos Pequenos";
             _viewSmallIconMenuItem.Click += _viewSmallIconMenuItem_Click;
             // 
             // _viewBigIconMenuItem
             // 
             _viewBigIconMenuItem.Name = "_viewBigIconMenuItem";
-            _viewBigIconMenuItem.Size = new Size(331, 36);
+            _viewBigIconMenuItem.Size = new Size(308, 40);
             _viewBigIconMenuItem.Text = "&Arquivos Grandes";
             _viewBigIconMenuItem.Click += _viewBigIconMenuItem_Click;
             // 
             // _viewListIconMenuItem
             // 
             _viewListIconMenuItem.Name = "_viewListIconMenuItem";
-            _viewListIconMenuItem.Size = new Size(331, 36);
+            _viewListIconMenuItem.Size = new Size(308, 40);
             _viewListIconMenuItem.Text = "&Lista";
             _viewListIconMenuItem.Click += _viewListIconMenuItem_Click;
             // 
             // _viewDetailsIconMenuItem
             // 
             _viewDetailsIconMenuItem.Name = "_viewDetailsIconMenuItem";
-            _viewDetailsIconMenuItem.Size = new Size(331, 36);
+            _viewDetailsIconMenuItem.Size = new Size(308, 40);
             _viewDetailsIconMenuItem.Text = "&Detalhes";
             _viewDetailsIconMenuItem.Click += _viewDetailsIconMenuItem_Click;
             // 
@@ -476,8 +476,8 @@ namespace TCloudExplorer
             _refreshToolButton.Name = "_refreshToolButton";
             _refreshToolButton.Padding = new Padding(4);
             _refreshToolButton.ShowDropDownArrow = false;
-            _refreshToolButton.Size = new Size(122, 42);
-            _refreshToolButton.Text = "Refresh";
+            _refreshToolButton.Size = new Size(135, 42);
+            _refreshToolButton.Text = "Atualizar";
             _refreshToolButton.ToolTipText = "Refresh this folder";
             _refreshToolButton.Click += _refreshToolButton_Click;
             // 
@@ -498,8 +498,8 @@ namespace TCloudExplorer
             _upToolButton.Overflow = ToolStripItemOverflow.Never;
             _upToolButton.Padding = new Padding(4);
             _upToolButton.ShowDropDownArrow = false;
-            _upToolButton.Size = new Size(79, 42);
-            _upToolButton.Text = "Up";
+            _upToolButton.Size = new Size(166, 42);
+            _upToolButton.Text = "Pasta Acima";
             _upToolButton.ToolTipText = "Go to parent folder";
             _upToolButton.Click += _upToolButton_Click;
             // 
@@ -525,15 +525,15 @@ namespace TCloudExplorer
             _cancelButton.Name = "_cancelButton";
             _cancelButton.Padding = new Padding(4);
             _cancelButton.ShowDropDownArrow = false;
-            _cancelButton.Size = new Size(115, 42);
-            _cancelButton.Text = "Cancel";
-            _cancelButton.ToolTipText = "Cancel loading this folderl";
+            _cancelButton.Size = new Size(114, 42);
+            _cancelButton.Text = "Pausar";
+            _cancelButton.ToolTipText = "Pausar load de pastas...";
             _cancelButton.Click += _cancelButton_Click;
             // 
             // _loadingLabel
             // 
             _loadingLabel.Name = "_loadingLabel";
-            _loadingLabel.Size = new Size(2165, 36);
+            _loadingLabel.Size = new Size(2111, 36);
             _loadingLabel.Spring = true;
             _loadingLabel.Text = "...";
             _loadingLabel.TextAlign = ContentAlignment.MiddleLeft;
