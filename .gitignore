@@ -1,0 +1,74 @@
+# Build artifacts
+bin/
+obj/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS Code
+.vscode/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# DotNet
+.vs/
+*.log
+*.tlog
+*.userprefs
+
+# Log files
+*.log
+
+# By default, ignore any root files or directories
+# whose names start with a dot
+.*
+!.gitignore
+
+# Exclude all bin directories
+[Bb]in/
+
+# Exclude all obj directories
+[Oo]bj/
+
+# Exclude project.lock.json file
+project.lock.json
+
+# Exclude project.fragment.lock.json file
+project.fragment.lock.json
+
+# Exclude generated files by precompilation
+*.csproj.user
+*.csproj.dotSettings.user
+*.csproj.userosscache
+
+# Ignore build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]ppPackages/
+[Bb]uild[Bb]undles/
