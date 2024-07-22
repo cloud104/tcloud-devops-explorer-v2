@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "MOBZSize": {
+    "TCloudExplorer": {
       "commandName": "Project",
       "commandLineArgs": "c:\\temp2"
     }

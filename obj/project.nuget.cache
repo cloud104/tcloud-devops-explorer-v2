@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YBULHQl6o+blXmsWOV+k8WTxTI8pDnvDfDqnUqEnWZr/CcKvMc6LHKH+HZFPx6H8JhhYPY9qh5JTm0lk8mrH3g==",
+  "dgSpecHash": "f4R3I0BEnl8dO8FokV2WjKLv2kFfZ4DAwe9fKN3SYhi/23eC+CtuHS7Jj72PhgUP011RaogiNwpXFzuLxfX1tQ==",
   "success": true,
-  "projectFilePath": "C:\\code\\tcloud-explorer-v2\\TCLoudExplorer.csproj",
+  "projectFilePath": "C:\\code\\tcloud-explorer-v2-git\\tcloud-devops-explorer-v2\\TCLoudExplorer.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
