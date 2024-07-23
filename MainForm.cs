@@ -5,16 +5,18 @@ using System.Drawing;
 using System.IO;
 using System.Net.Http.Json;
 using System.Reflection.Metadata.Ecma335;
+using System.Windows.Forms;
 using System.Xml.Linq;
 using TCLoudExplorer;
 using TCLoudExplorer.@class;
 using TCLoudExplorer.Properties;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace TCloudExplorer
 {
     public partial class MainForm : Form
     {
-        private CopiedItem _copiedItem;
+        private CopiedItem _copiedItem = null;
 
         private const int UpdateMs = 200;
         private const string ToolName = "TCloudExplorer";
@@ -27,11 +29,11 @@ namespace TCloudExplorer
 
         private const string ICON_FOLDER = nameof(Resources.folder_o);
         private const string ICON_FOLDER_OPEN = nameof(Resources.folder_open_o);
-
         private const string ICON_FILE = nameof(Resources.file_o);
-
         private const string ICON_ERROR = nameof(Resources.exclamation);
-
+        private const string TYPE_FOLDER = "folder";
+        private const string TYPE_FILE = "file";
+        private const string DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
         private string _titleBase = $"{ToolName} v{Application.ProductVersion}";
 
         // For list view sorting: default on size descending
@@ -315,7 +317,7 @@ namespace TCloudExplorer
                         subdir.TotalDirectoryCount.ToString("#,,0"),
                         subdir.TotalFileCount.ToString("#,,0"),
                         subdir.SizeInBytes.ToString("#,,0"),
-                        subdir.LastModified.ToString("yyyy-MM-dd HH:mm:ss")
+                        subdir.LastModified.ToString(DATE_FORMAT)
                     },
                     subdir.Exception != null ? ICON_ERROR : ICON_FOLDER);
 
@@ -338,7 +340,7 @@ namespace TCloudExplorer
                         0.ToString("#,,0"),
                         0.ToString("#,,0"),
                         file.SizeInBytes.ToString("#,,0"),
-                        file.LastModified.ToString("yyyy-MM-dd HH:mm:ss")
+                        file.LastModified.ToString(DATE_FORMAT)
                     },
                     file.Exception != null ? ICON_ERROR : ICON_FILE);
 
@@ -427,25 +429,6 @@ namespace TCloudExplorer
 
             // Set the width of the status label to the width of the column
             _columnStatusLabels[e.ColumnIndex].Width = _listView.Columns[e.ColumnIndex].Width;
-        }
-
-        /// <summary>
-        /// Allow the user to choose a folder to open and parse
-        /// </summary>
-        private async void _openButton_Click(object sender, EventArgs e)
-        {
-            using (var dlg = new FolderBrowserDialog())
-            {
-                dlg.UseDescriptionForTitle = true;
-                dlg.Description = "Choose a folder to open";
-                dlg.SelectedPath = _lastOpenedPath;
-
-                if (dlg.ShowDialog(this) == DialogResult.OK && dlg.SelectedPath != null)
-                {
-                    _lastOpenedPath = dlg.SelectedPath;
-                    await LoadSizesAsync(dlg.SelectedPath);
-                }
-            }
         }
 
         /// <summary>
@@ -569,9 +552,25 @@ namespace TCloudExplorer
 
         private void _refreshCurrentFolder_Click(object sender, EventArgs e)
         {
-            TreeNode selectedNode = GetSelectedNodeTree();
+            RefreshCurrentFolder();
+        }
+        public void RefreshCurrentFolder()
+        {
+            RefreshCurrentFolder(null);
+        }
+
+        public void RefreshCurrentFolder(TreeNode selectedNode)
+        {
+            if (selectedNode is null)
+            {
+                selectedNode = GetSelectedNodeTree();
+            } else
+            {
+                selectedNode.Nodes.Clear();
+            }
             _listView.Items.Clear();
-            string[] dirs = Directory.GetDirectories(selectedNode.FullPath);
+            string fullPath = selectedNode.FullPath;
+            string[] dirs = Directory.GetDirectories(fullPath);
             List<TreeNode> updatedDirs = RefreshSelectedNode(dirs);
 
             // adicionando pastas
@@ -582,24 +581,27 @@ namespace TCloudExplorer
             }
 
             // adicionando arquivos
-            string[] updatedFiles = Directory.GetFiles(selectedNode.FullPath);
-            SizeDirectory parentSizeDirectory = SizeDirectory.FromPath(selectedNode.FullPath) ;
+            string[] updatedFiles = Directory.GetFiles(fullPath);
+            SizeDirectory parentSizeDirectory = SizeDirectory.FromPath(fullPath);
+            var sizeParentDir = (SizeDirectory)selectedNode.Tag;
+            sizeParentDir.Files.Clear();
             foreach (var file in updatedFiles)
             {
-                SizeFile sizeItem = new SizeFile(file, selectedNode.Parent.FullPath);
+                SizeFile sizeFile = new SizeFile(file, fullPath);
                 ListViewItem fileItem = new ListViewItem(new[] {
-                        sizeItem.Name,
-                        NiceSize(sizeItem.SizeInBytes),
-                        PercentageOf(sizeItem.SizeInBytes, parentSizeDirectory.SizeInBytes),
+                        sizeFile.Name,
+                        NiceSize(sizeFile.SizeInBytes),
+                        PercentageOf(sizeFile.SizeInBytes, parentSizeDirectory.SizeInBytes),
                         0.ToString("#,,0"),
                         0.ToString("#,,0"),
-                         sizeItem.SizeInBytes.ToString("#,,0"),
-                        sizeItem.LastModified.ToString("yyyy-MM-dd HH:mm:ss")
-                    },
-                sizeItem.Exception != null ? ICON_ERROR : ICON_FILE);
-                fileItem.Name = sizeItem.FullName;
-                fileItem.Tag = file;
+                        sizeFile.SizeInBytes.ToString("#,,0"),
+                        sizeFile.LastModified.ToString(DATE_FORMAT)
+                    });
+                fileItem.Name = sizeFile.FullName;
+                fileItem.Tag = sizeFile;
+                fileItem.ImageKey = ICON_FILE;
                 _listView.Items.Add(fileItem);
+                sizeParentDir.Files.Add(sizeFile);
             }
 
             _treeView.Sort();
@@ -609,9 +611,9 @@ namespace TCloudExplorer
         /// Prepare the list view context menu. There can be no list item selected
         /// and then we need to disable some menu items
         /// </summary>
-        private void _listViewContextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        private void _listViewContextMenu_Opening(object sender, EventArgs e)
         {
-            var hasSelectedItem = _listView.SelectedItems.Count == 1;
+            var hasSelectedItem = _listView.SelectedItems.Count >= 1;
             var hasFolderSelected = false;
             if (hasSelectedItem)
             {
@@ -636,7 +638,12 @@ namespace TCloudExplorer
                 _renameMenuItem.Visible = false;
                 _copyMenuItem.Visible = false;
                 _cutMenuItem.Visible = false;
-                if (this._copiedItem != null) { _pasteMenuItem.Visible = true; }
+                if (this._copiedItem != null) {
+                    _pasteMenuItem.Visible = true;
+                } else
+                {
+                    _pasteMenuItem.Visible = false;
+                }
             }
         }
 
@@ -654,44 +661,55 @@ namespace TCloudExplorer
                 return;
             }
 
-            SizeItem sizeItem = (SizeItem)_listView.SelectedItems[0].Tag;
+            DialogResult result = MessageBox.Show("Deseja realmente excluir o(s) item(s) selecionado(s)?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.No)
+            {
+                return;
+            }
+
+            var selectedItems = _listView.SelectedItems.Cast<ListViewItem>().ToList();
+
+            foreach (var item in selectedItems)
+            {
+                SizeItem sizeItem = (SizeItem)item.Tag;
+                DeleteItem(sizeItem);
+            }
+        }
+
+        public void DeleteItem(SizeItem sizeItem)
+        {
             string selectedItem = sizeItem.FullName;
 
-            DialogResult result = MessageBox.Show($"Deseja realmente excluir este item? \n{selectedItem}", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
+            // remove o item da listview
+            foreach (ListViewItem item in _listView.Items)
             {
+                if (item.Name == selectedItem)
+                {
+                    _listView.Items.Remove(item);
+                    break;
+                }
+            }
 
-                // remove o item da listview
-                foreach (ListViewItem item in _listView.Items)
-                {
-                    if (item.Name == selectedItem)
-                    {
-                        _listView.Items.Remove(item);
-                        break;
-                    }
-                }
-
-                if (Directory.Exists(selectedItem))
-                {
-                    SizeDirectory sizeDirectory = (SizeDirectory)sizeItem;
-                    TreeNode[] treeToRemove = _treeView.Nodes.Find(selectedItem, true);
-                    SizeDirectory parentSizeDir = (SizeDirectory)_treeView.SelectedNode.Tag;
-                    parentSizeDir.Directories.Remove(sizeDirectory);
-                    treeToRemove[0].Remove();
-                    // remove diretório
-                    Directory.Delete(selectedItem, true);
-                }
-                else if (File.Exists(selectedItem))
-                {
-                    SizeFile sizeFile = (SizeFile)sizeItem;
-                    SizeDirectory parentSizeDir = (SizeDirectory)_treeView.SelectedNode.Tag;
-                    parentSizeDir.Files.Remove(sizeFile);
-                    // Fecha todos os handles associados ao arquivo
-                    File.WriteAllText(selectedItem, String.Empty);
-                    // remove arquivo
-                    File.Delete(selectedItem);
-                }
+            if (Directory.Exists(selectedItem))
+            {
+                SizeDirectory sizeDirectory = (SizeDirectory)sizeItem;
+                TreeNode[] treeToRemove = _treeView.Nodes.Find(selectedItem, true);
+                SizeDirectory parentSizeDir = (SizeDirectory)_treeView.SelectedNode.Tag;
+                parentSizeDir.Directories.Remove(sizeDirectory);
+                treeToRemove[0].Remove();
+                // remove diretório
+                DeleteFolder(selectedItem);
+            }
+            else if (File.Exists(selectedItem))
+            {
+                SizeFile sizeFile = (SizeFile)sizeItem;
+                SizeDirectory parentSizeDir = (SizeDirectory)_treeView.SelectedNode.Tag;
+                parentSizeDir.Files.Remove(sizeFile);
+                // Fecha todos os handles associados ao arquivo
+                File.WriteAllText(selectedItem, String.Empty);
+                // remove arquivo
+                File.Delete(selectedItem);
             }
         }
         public void _viewMenuItem_Click(object sender, EventArgs e) {}
@@ -735,16 +753,24 @@ namespace TCloudExplorer
                 return;
             }
 
-            SizeItem sizeItem = (SizeItem)_listView.SelectedItems[0].Tag;
-            SizeDirectory parentSizeDir = (SizeDirectory)_treeView.SelectedNode.Tag;
-            _copiedItem = new CopiedItem(_treeView.SelectedNode, parentSizeDir, _listView.SelectedItems[0], sizeItem, false);
+            var selectedNode = GetSelectedNodeTree();
+            SizeDirectory parentSizeDir = (SizeDirectory)selectedNode.Tag;
+            var coll = _listView.SelectedItems.Cast<ListViewItem>().ToList();
+            _copiedItem = new CopiedItem(selectedNode, parentSizeDir, coll, false);
         }
 
         public void _cutMenuItem_Click(object sender, EventArgs e)
         {
-            SizeItem sizeItem = (SizeItem)_listView.SelectedItems[0].Tag;
-            SizeDirectory parentSizeDir = (SizeDirectory)_treeView.SelectedNode.Tag;
-            _copiedItem = new CopiedItem(_treeView.SelectedNode, parentSizeDir, _listView.SelectedItems[0], sizeItem, true);
+            if (_listView.SelectedItems.Count == 0)
+            {
+                return;
+            }
+
+            var selectedNode = GetSelectedNodeTree();
+            SizeItem sizeItem = (SizeItem)selectedNode.Tag;
+            SizeDirectory parentSizeDir = (SizeDirectory)selectedNode.Tag;
+            var coll = _listView.SelectedItems.Cast<ListViewItem>().ToList();
+            _copiedItem = new CopiedItem(selectedNode, parentSizeDir, coll, true);
         }
 
         public void _pasteMenuItem_Click(object sender, EventArgs e)
@@ -754,26 +780,146 @@ namespace TCloudExplorer
                 return;
             }
 
-            TreeNode destinationTreeNode = _treeView.SelectedNode;
-            SizeDirectory destinationSizeDirectory = (SizeDirectory)_treeView.SelectedNode.Tag;
+            TreeNode destinationTreeNode = GetSelectedNodeTree();
+            SizeDirectory destinationSizeDirectory = (SizeDirectory)destinationTreeNode.Tag;
+            bool replaceDestination = false;
+            DialogResult result = DialogResult.None;
+            TreeNode parentSourceFullName = this._copiedItem.parentSource;
 
-            if (this._copiedItem.IsDirectory())
+            foreach (var listViewItem in this._copiedItem.copiedListViewItem)
             {
-                DirectoryInfo dirInfo = new DirectoryInfo(this._copiedItem.copiedListViewItem.Name);
-                if (this._copiedItem.isMoveItem)
+                // se for diretórios
+                if (listViewItem.Tag is SizeDirectory)
                 {
-                    dirInfo.MoveTo(destinationSizeDirectory.FullName);
-                } else {
-                    // fazer o foreach
+                    DirectoryInfo dirInfo = new DirectoryInfo(listViewItem.Name);
+                    SizeDirectory sizeDirectory = (SizeDirectory)listViewItem.Tag;
+                    string fullDestinationName = Path.Combine(destinationSizeDirectory.FullName, listViewItem.Text);
+
+                    if (Directory.Exists(fullDestinationName) && result.Equals(DialogResult.None)) { 
+                        result = MessageBox.Show("Existem conteúdos iguais na pasta de destino. Deseja substituir o conteúdo pelo copiado?", "Conteúdo Existente", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (result.Equals(DialogResult.No) || (result.Equals(DialogResult.None)))
+                        {
+                            return;
+                        } else
+                        {
+                            replaceDestination = true;
+                        }
+                    }
+                    CopySubFoldersAndFiles(listViewItem.Name, destinationSizeDirectory.FullName, this._copiedItem.isMoveItem, replaceDestination);
+                    // se for mover, deleta os diretórios e seu conteúdo
+                    if (this._copiedItem.isMoveItem)
+                    {
+                        DeleteFolder(listViewItem.Name);
+                    }
                 }
-            } else {
-                var newDestinationName = Path.Combine(destinationSizeDirectory.FullName, this._copiedItem.copiedSizeItem.Name);
-                if (this._copiedItem.isMoveItem)
+                // se for arquivos
+                else if (listViewItem.Tag is SizeItem)
                 {
-                    File.Move(this._copiedItem.copiedListViewItem.Name, newDestinationName);
-                } else {
-                    File.Copy(this._copiedItem.copiedListViewItem.Name, newDestinationName);
+                    SizeItem sizeItem = (SizeItem)listViewItem.Tag;
+                    var newDestinationName = Path.Combine(destinationSizeDirectory.FullName, listViewItem.Text);
+
+                    if (File.Exists(newDestinationName) && result.Equals(DialogResult.None))
+                    {
+                        result = MessageBox.Show("Existem conteúdos iguais na pasta de destino. Deseja substituir o conteúdo pelo copiado?", "Conteúdo Existente", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (result.Equals(DialogResult.No) || (result.Equals(DialogResult.None)))
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            replaceDestination = true;
+                        }
+                    }
+
+                    CopyFile(sizeItem.FullName, newDestinationName, this._copiedItem.isMoveItem, replaceDestination);
                 }
+            }
+
+            if (this._copiedItem.isMoveItem)
+            {
+                RefreshCurrentFolder(parentSourceFullName);
+                destinationTreeNode = GetSelectedNodeTree();
+                RefreshCurrentFolder(destinationTreeNode);
+            }
+            else
+            {
+                RefreshCurrentFolder();
+            }
+            destinationTreeNode.EnsureVisible();
+            this._copiedItem = null;
+        }
+
+        private void DeleteFolder(string target)
+        {
+            string[] files = Directory.GetFiles(target);
+            string[] dirs = Directory.GetDirectories(target);
+
+            foreach (string file in files)
+            {
+                File.SetAttributes(file, FileAttributes.Normal);
+                File.Delete(file);
+            }
+
+            foreach (string dir in dirs)
+            {
+                DeleteFolder(dir);
+            }
+
+            Directory.Delete(target, false);
+        }
+
+        // Método que faz a copia de diretorios ou arquivos recursivamente
+        private void CopySubFoldersAndFiles(string sourceFolder, string destinationFolder, bool move, bool replace)
+        {
+            string[] files = Directory.GetFiles(sourceFolder);
+            string[] subdirectories = Directory.GetDirectories(sourceFolder);
+            string directoryName = Path.GetFileName(sourceFolder);
+            string destinationPath = Path.Combine(destinationFolder, directoryName);
+
+            if (Directory.Exists(destinationPath))
+            {
+                if (replace)
+                {
+                    DeleteFolder(destinationPath);
+                }
+            }
+
+            // cria o diretorio de destino
+            Directory.CreateDirectory(destinationPath);
+
+            // se for arquivo
+            foreach (string file in files)
+            {
+                string fileSourceName = Path.GetFileName(file);
+                string subFileDestName = Path.Combine(destinationFolder, directoryName);
+                string fileDestName = Path.Combine(subFileDestName, fileSourceName);
+                CopyFile(file, fileDestName, move, replace);
+            }
+
+            // verifica sub diretorios e faz a recursão
+            foreach (string subdirectory in subdirectories)
+            {
+                string subSubDestName = Path.Combine(destinationFolder, directoryName);
+                CopySubFoldersAndFiles(subdirectory, subSubDestName, move, replace);
+            }
+        }
+
+        public void CopyFile(string sourceFile, string destinationFile, bool move, bool replace)
+        {
+            string fileName = Path.GetFileName(sourceFile);
+
+            if (replace && File.Exists(destinationFile))
+            {
+                File.Delete(destinationFile);
+            }
+
+            if (move)
+            {
+                File.Move(sourceFile, destinationFile);
+            }
+            else
+            {
+                File.Copy(sourceFile, destinationFile);
             }
         }
 
@@ -807,19 +953,9 @@ namespace TCloudExplorer
             
             SizeFile file = new SizeFile(itemFullName, rootPath);
 
-            var newListChild = new ListViewItem(new[] {
-                    itemName,
-                    NiceSize(0),
-                    PercentageOf(0, parentDir.SizeInBytes),
-                    null,
-                    0.ToString("#,,0"),
-                    0.ToString("#,,0"),
-                    0.ToString("yyyy-MM-dd HH:mm:ss") });
+            ListViewItem newListChild = CreateListViewItem(itemName, itemFullName, parentDir, TYPE_FILE);
 
-            newListChild.Name = itemFullName;
-            newListChild.ImageKey = ICON_FILE;
             newListChild.Tag = file;
-
             _listView.Items.Add(newListChild);
             parentDir.Files.Add(file);
         }
@@ -850,27 +986,37 @@ namespace TCloudExplorer
             newNode.ImageKey = ICON_FOLDER;
             newNode.SelectedImageKey = ICON_FOLDER_OPEN;
             newNode.EnsureVisible();
+            var newListChild = CreateListViewItem(itemName, itemFullName, parentDir, TYPE_FOLDER);
+            newNode.Tag = newListChild.Tag;
+            _listView.Items.Add(newListChild);
+            parentNode.Nodes.Add(newNode);
+        }
 
-            var newListChild = new ListViewItem(new[] {
-                    itemName,
-                    NiceSize(0),
-                    PercentageOf(0, parentDir.SizeInBytes),
-                    null,
-                    0.ToString("#,,0"),
-                    0.ToString("#,,0"),
-                    0.ToString("yyyy-MM-dd HH:mm:ss") } );
+        public ListViewItem CreateListViewItem(string itemName, string itemFullName, SizeDirectory parentDir, string type)
+        {
+            ListViewItem newListChild = new ListViewItem(new[] {
+                itemName,
+                NiceSize(0),
+                PercentageOf(0, parentDir.SizeInBytes),
+                "",
+                0.ToString("#,,0"),
+                0.ToString("#,,0"),
+                0.ToString(DATE_FORMAT) });
 
             newListChild.Name = itemFullName;
-            newListChild.ImageKey = ICON_FOLDER;
 
-            SizeDirectory newSizeDirectory = SizeDirectory.FromPath(itemFullName);
-            parentDir.Directories.Add(newSizeDirectory);
-            
-            newListChild.Tag = newSizeDirectory;
-            _listView.Items.Add(newListChild);
-
-            newNode.Tag = newSizeDirectory;
-            parentNode.Nodes.Add(newNode);
+            if (type.Equals(TYPE_FOLDER))
+            {
+                newListChild.ImageKey = ICON_FOLDER;
+                SizeDirectory newSizeDirectory = SizeDirectory.FromPath(itemFullName);
+                parentDir.Directories.Add(newSizeDirectory);
+                newListChild.Tag = newSizeDirectory;
+            }
+            else if (type.Equals(TYPE_FILE))
+            {
+                newListChild.ImageKey = ICON_FILE;
+            }
+            return newListChild;
         }
 
         public void _newFolderMenuItem_Click(object sender, EventArgs e)
@@ -887,6 +1033,11 @@ namespace TCloudExplorer
             if (_treeView.SelectedNode == null)
             {
                 node = _treeView.Nodes.Find(_lastCurrentOpenedPath, true).FirstOrDefault();
+                if (string.IsNullOrEmpty(node.FullPath))
+                {
+                    node = new TreeNode(Path.GetFullPath(_lastCurrentOpenedPath)) { Name = Path.GetFullPath(_lastCurrentOpenedPath) };
+                }
+
                 if (node == null)
                 {
                     return node;
@@ -895,6 +1046,11 @@ namespace TCloudExplorer
             else
             {
                 node = _treeView.SelectedNode;
+            }
+
+            if (node.Tag == null)
+            {
+                node.Tag = SizeDirectory.FromPath(_lastCurrentOpenedPath);
             }
 
             return node;

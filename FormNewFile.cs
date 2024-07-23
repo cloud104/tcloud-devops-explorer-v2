@@ -52,10 +52,22 @@ namespace TCloudExplorer
             }
             else
             {
-                using (FileStream fs = File.Create(newFilePath)) {}
+                using (FileStream fs = File.Create(newFilePath)) { }
                 this.Close();
                 FileCreated?.Invoke(this, new ItemCreatedEventArgs(newFileName, this.selectedFolder));
             }
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FormNewFile_Load(object sender, EventArgs e)
+        {
+
+        }
     }
+
+
 }

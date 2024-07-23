@@ -33,6 +33,7 @@
             _txtNewFolder = new TextBox();
             label1 = new Label();
             SuspendLayout();
+            this.AcceptButton = _btnOkNewFolder;
             // 
             // _btnCancelNewFolder
             // 

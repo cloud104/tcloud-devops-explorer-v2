@@ -265,6 +265,7 @@ namespace TCloudExplorer
             _pasteMenuItem.ShortcutKeys = Keys.Control | Keys.V;
             _pasteMenuItem.Size = new Size(331, 36);
             _pasteMenuItem.Text = "&Colar";
+            _pasteMenuItem.Visible = false;
             _pasteMenuItem.Click += _pasteMenuItem_Click;
             // 
             // _cutMenuItem

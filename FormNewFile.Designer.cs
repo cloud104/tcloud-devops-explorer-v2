@@ -33,6 +33,7 @@
             _btnOkNewFile = new Button();
             _btnCancelNewFile = new Button();
             SuspendLayout();
+
             // 
             // label1
             // 
@@ -43,11 +44,12 @@
             label1.Size = new Size(188, 30);
             label1.TabIndex = 0;
             label1.Text = "Criar novo arquivo:";
+            label1.Click += label1_Click;
             // 
             // _txtNewFile
             // 
             _txtNewFile.Location = new Point(20, 56);
-            _txtNewFile.Margin = new Padding(4, 4, 4, 4);
+            _txtNewFile.Margin = new Padding(4);
             _txtNewFile.Name = "_txtNewFile";
             _txtNewFile.Size = new Size(317, 35);
             _txtNewFile.TabIndex = 1;
@@ -55,7 +57,7 @@
             // _btnOkNewFile
             // 
             _btnOkNewFile.Location = new Point(208, 110);
-            _btnOkNewFile.Margin = new Padding(4, 4, 4, 4);
+            _btnOkNewFile.Margin = new Padding(4);
             _btnOkNewFile.Name = "_btnOkNewFile";
             _btnOkNewFile.Size = new Size(131, 41);
             _btnOkNewFile.TabIndex = 2;
@@ -66,7 +68,7 @@
             // _btnCancelNewFile
             // 
             _btnCancelNewFile.Location = new Point(20, 110);
-            _btnCancelNewFile.Margin = new Padding(4, 4, 4, 4);
+            _btnCancelNewFile.Margin = new Padding(4);
             _btnCancelNewFile.Name = "_btnCancelNewFile";
             _btnCancelNewFile.Size = new Size(127, 41);
             _btnCancelNewFile.TabIndex = 3;
@@ -76,6 +78,7 @@
             // 
             // FormNewFile
             // 
+            AcceptButton = _btnOkNewFile;
             AutoScaleDimensions = new SizeF(12F, 30F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(353, 170);
@@ -84,10 +87,11 @@
             Controls.Add(_txtNewFile);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "FormNewFile";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Novo arquivo";
+            Load += FormNewFile_Load;
             ResumeLayout(false);
             PerformLayout();
         }
