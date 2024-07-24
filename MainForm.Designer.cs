@@ -61,6 +61,7 @@ namespace TCloudExplorer
             _updateMenuItem = new ToolStripMenuItem();
             _separatorUpdate = new ToolStripSeparator();
             _copyMenuItem = new ToolStripMenuItem();
+            _openItemMenuItem = new ToolStripMenuItem();
             _pasteMenuItem = new ToolStripMenuItem();
             _cutMenuItem = new ToolStripMenuItem();
             _newFileMenuItem = new ToolStripMenuItem();
@@ -233,7 +234,7 @@ namespace TCloudExplorer
             // _listViewContextMenu
             // 
             _listViewContextMenu.ImageScalingSize = new Size(32, 32);
-            _listViewContextMenu.Items.AddRange(new ToolStripItem[] { _updateMenuItem, _separatorUpdate, _copyMenuItem, _pasteMenuItem, _cutMenuItem, _newFileMenuItem, _newFolderMenuItem, _separatorDelete, _deleteMenuItem, _separatorView, _viewMenuItem });
+            _listViewContextMenu.Items.AddRange(new ToolStripItem[] { _openItemMenuItem, _updateMenuItem, _separatorUpdate, _copyMenuItem, _pasteMenuItem, _cutMenuItem, _newFileMenuItem, _newFolderMenuItem, _separatorDelete, _deleteMenuItem, _separatorView, _renameMenuItem, _viewMenuItem });
             _listViewContextMenu.Name = "_treeViewContextMenu";
             _listViewContextMenu.Size = new Size(332, 310);
             _listViewContextMenu.Opening += _listViewContextMenu_Opening;
@@ -258,6 +259,15 @@ namespace TCloudExplorer
             _copyMenuItem.Size = new Size(331, 36);
             _copyMenuItem.Text = "&Copiar";
             _copyMenuItem.Click += _copyMenuItem_Click;
+
+            // 
+            // _copyMenuItem
+            // 
+            _openItemMenuItem.Name = "_openItemMenuItem";
+            _openItemMenuItem.Size = new Size(331, 36);
+            _openItemMenuItem.Text = "&Abrir";
+            _openItemMenuItem.Visible = false;
+            _openItemMenuItem.Click += _openItemMenuItem_Click;
             // 
             // _pasteMenuItem
             // 
@@ -283,7 +293,7 @@ namespace TCloudExplorer
             _newFileMenuItem.Name = "_newFileMenuItem";
             _newFileMenuItem.ShortcutKeys = Keys.Control | Keys.N;
             _newFileMenuItem.Size = new Size(331, 36);
-            _newFileMenuItem.Text = "&Criar novo arquivo";
+            _newFileMenuItem.Text = "&Novo arquivo";
             _newFileMenuItem.Click += _newFileMenuItem_Click;
             // 
             // _newFolderMenuItem
@@ -423,6 +433,7 @@ namespace TCloudExplorer
             _renameMenuItem.ShortcutKeys = Keys.F2;
             _renameMenuItem.Size = new Size(295, 32);
             _renameMenuItem.Text = "&Renomear";
+            _renameMenuItem.Visible = true;
             _renameMenuItem.Click += _renameMenuItem_Click;
             // 
             // _showDirInExplorerMenuItem
@@ -586,6 +597,7 @@ namespace TCloudExplorer
     private ToolStripSeparator _separatorView;
     private ToolStripMenuItem _updateMenuItem;
     private ToolStripMenuItem _copyMenuItem;
+    private ToolStripMenuItem _openItemMenuItem;
     private ToolStripMenuItem _cutMenuItem;
     private ToolStripMenuItem _pasteMenuItem;
     private ToolStripMenuItem _renameMenuItem;
