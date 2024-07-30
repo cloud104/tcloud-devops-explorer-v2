@@ -2,7 +2,7 @@
   "profiles": {
     "TCloudExplorer": {
       "commandName": "Project",
-      "commandLineArgs": "c:\\temp2"
+      "commandLineArgs": "FoldersToFilter=C:\\temp2\\;BlackListExtensions=.ppt;WhiteListExtensions=.txt;"
     }
   }
 }

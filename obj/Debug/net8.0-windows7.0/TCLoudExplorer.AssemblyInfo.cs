@@ -13,11 +13,11 @@ using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("TCLoudExplorer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("0.2.3.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.2.3")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("2.0.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("TCLoudExplorer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TCLoudExplorer")]
-[assembly: System.Reflection.AssemblyVersionAttribute("0.2.3.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("2.0.0.0")]
 [assembly: System.Runtime.Versioning.TargetPlatformAttribute("Windows7.0")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Windows7.0")]
 

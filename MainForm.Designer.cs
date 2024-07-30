@@ -54,26 +54,6 @@ namespace TCloudExplorer
             _treeViewContextMenu = new ContextMenuStrip(components);
             _treeStatusStrip = new StatusStrip();
             _treeStatusLabel = new ToolStripStatusLabel();
-            _listView = new ListView();
-            _bytesColumn = new ColumnHeader();
-            _lastModifiedColumn = new ColumnHeader();
-            _listViewContextMenu = new ContextMenuStrip(components);
-            _updateMenuItem = new ToolStripMenuItem();
-            _separatorUpdate = new ToolStripSeparator();
-            _copyMenuItem = new ToolStripMenuItem();
-            _openItemMenuItem = new ToolStripMenuItem();
-            _pasteMenuItem = new ToolStripMenuItem();
-            _cutMenuItem = new ToolStripMenuItem();
-            _newFileMenuItem = new ToolStripMenuItem();
-            _newFolderMenuItem = new ToolStripMenuItem();
-            _separatorDelete = new ToolStripSeparator();
-            _deleteMenuItem = new ToolStripMenuItem();
-            _separatorView = new ToolStripSeparator();
-            _viewMenuItem = new ToolStripMenuItem();
-            _viewSmallIconMenuItem = new ToolStripMenuItem();
-            _viewBigIconMenuItem = new ToolStripMenuItem();
-            _viewListIconMenuItem = new ToolStripMenuItem();
-            _viewDetailsIconMenuItem = new ToolStripMenuItem();
             _listStatusStrip = new StatusStrip();
             _listNameStatusLabel = new ToolStripStatusLabel();
             _listSizeStatusLabel = new ToolStripStatusLabel();
@@ -82,15 +62,39 @@ namespace TCloudExplorer
             _listFilesStatusLabel = new ToolStripStatusLabel();
             _listBytesStatusLabel = new ToolStripStatusLabel();
             _listLastModifiedStatusLabel = new ToolStripStatusLabel();
+            _listView = new ListView();
+            _bytesColumn = new ColumnHeader();
+            _lastModifiedColumn = new ColumnHeader();
+            _listViewContextMenu = new ContextMenuStrip(components);
+            _openFolderMenuItem = new ToolStripMenuItem();
+            _openItemMenuItem = new ToolStripMenuItem();
+            _updateMenuItem = new ToolStripMenuItem();
+            _separatorUpdate = new ToolStripSeparator();
+            _copyMenuItem = new ToolStripMenuItem();
+            _pasteMenuItem = new ToolStripMenuItem();
+            _cutMenuItem = new ToolStripMenuItem();
+            _newFileMenuItem = new ToolStripMenuItem();
+            _newFolderMenuItem = new ToolStripMenuItem();
+            _separatorDelete = new ToolStripSeparator();
+            _deleteMenuItem = new ToolStripMenuItem();
+            _separatorView = new ToolStripSeparator();
             _renameMenuItem = new ToolStripMenuItem();
+            _viewMenuItem = new ToolStripMenuItem();
+            _viewSmallIconMenuItem = new ToolStripMenuItem();
+            _viewBigIconMenuItem = new ToolStripMenuItem();
+            _viewListIconMenuItem = new ToolStripMenuItem();
+            _viewDetailsIconMenuItem = new ToolStripMenuItem();
+            _panelLoading = new Panel();
+            _progressBarLoading = new ProgressBar();
+            _lblInitLoading = new Label();
             _showDirInExplorerMenuItem = new ToolStripMenuItem();
             _openDirInExplorerMenuItem = new ToolStripMenuItem();
             _showItemInExplorerMenuItem = new ToolStripMenuItem();
             _openItemInExplorerMenuItem = new ToolStripMenuItem();
             _topStatusStrip = new StatusStrip();
             _refreshToolButton = new ToolStripDropDownButton();
-            _topStatusLabel = new ToolStripStatusLabel();
             _upToolButton = new ToolStripDropDownButton();
+            toolStripDropDownButton1 = new ToolStripDropDownButton();
             _loadingStatusStrip = new StatusStrip();
             _cancelButton = new ToolStripDropDownButton();
             _loadingLabel = new ToolStripStatusLabel();
@@ -104,8 +108,9 @@ namespace TCloudExplorer
             _splitContainer.Panel2.SuspendLayout();
             _splitContainer.SuspendLayout();
             _treeStatusStrip.SuspendLayout();
-            _listViewContextMenu.SuspendLayout();
             _listStatusStrip.SuspendLayout();
+            _listViewContextMenu.SuspendLayout();
+            _panelLoading.SuspendLayout();
             _topStatusStrip.SuspendLayout();
             _loadingStatusStrip.SuspendLayout();
             SuspendLayout();
@@ -153,9 +158,9 @@ namespace TCloudExplorer
             // 
             // _splitContainer.Panel2
             // 
-            _splitContainer.Panel2.Controls.Add(_listView);
             _splitContainer.Panel2.Controls.Add(_listStatusStrip);
-            _splitContainer.Size = new Size(2305, 983);
+            _splitContainer.Panel2.Controls.Add(_listView);
+            _splitContainer.Size = new Size(2305, 987);
             _splitContainer.SplitterDistance = 757;
             _splitContainer.SplitterWidth = 7;
             _splitContainer.TabIndex = 0;
@@ -169,7 +174,7 @@ namespace TCloudExplorer
             _treeView.Location = new Point(0, 0);
             _treeView.Margin = new Padding(10, 16, 10, 16);
             _treeView.Name = "_treeView";
-            _treeView.Size = new Size(757, 944);
+            _treeView.Size = new Size(757, 948);
             _treeView.Sorted = true;
             _treeView.TabIndex = 0;
             _treeView.AfterSelect += _treeView_AfterSelect;
@@ -186,7 +191,7 @@ namespace TCloudExplorer
             // 
             _treeStatusStrip.ImageScalingSize = new Size(28, 28);
             _treeStatusStrip.Items.AddRange(new ToolStripItem[] { _treeStatusLabel });
-            _treeStatusStrip.Location = new Point(0, 944);
+            _treeStatusStrip.Location = new Point(0, 948);
             _treeStatusStrip.Name = "_treeStatusStrip";
             _treeStatusStrip.Padding = new Padding(2, 0, 47, 0);
             _treeStatusStrip.Size = new Size(757, 39);
@@ -202,171 +207,11 @@ namespace TCloudExplorer
             _treeStatusLabel.Text = "Open a folder to get started";
             _treeStatusLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // _listView
-            // 
-            _listView.Columns.AddRange(new ColumnHeader[] { _nameColumn, _sizeColumn, _percentageColumn, _directoriesColumn, _filesColumn, _bytesColumn, _lastModifiedColumn });
-            _listView.ContextMenuStrip = _listViewContextMenu;
-            _listView.Dock = DockStyle.Fill;
-            _listView.FullRowSelect = true;
-            _listView.HideSelection = true;
-            _listView.Location = new Point(0, 0);
-            _listView.Margin = new Padding(10, 16, 10, 16);
-            _listView.Name = "_listView";
-            _listView.Size = new Size(1541, 944);
-            _listView.TabIndex = 0;
-            _listView.UseCompatibleStateImageBehavior = false;
-            _listView.View = View.Details;
-            _listView.ColumnWidthChanged += _listView_ColumnWidthChanged;
-            _listView.DoubleClick += _listView_DoubleClick;
-            _listView.KeyPress += _listView_KeyPress;
-            // 
-            // _bytesColumn
-            // 
-            _bytesColumn.Text = "Bytes";
-            _bytesColumn.TextAlign = HorizontalAlignment.Right;
-            _bytesColumn.Width = 150;
-            // 
-            // _lastModifiedColumn
-            // 
-            _lastModifiedColumn.Text = "Last modified";
-            _lastModifiedColumn.Width = 150;
-            // 
-            // _listViewContextMenu
-            // 
-            _listViewContextMenu.ImageScalingSize = new Size(32, 32);
-            _listViewContextMenu.Items.AddRange(new ToolStripItem[] { _openItemMenuItem, _updateMenuItem, _separatorUpdate, _copyMenuItem, _pasteMenuItem, _cutMenuItem, _newFileMenuItem, _newFolderMenuItem, _separatorDelete, _deleteMenuItem, _separatorView, _renameMenuItem, _viewMenuItem });
-            _listViewContextMenu.Name = "_treeViewContextMenu";
-            _listViewContextMenu.Size = new Size(332, 310);
-            _listViewContextMenu.Opening += _listViewContextMenu_Opening;
-            // 
-            // _updateMenuItem
-            // 
-            _updateMenuItem.Name = "_updateMenuItem";
-            _updateMenuItem.ShortcutKeys = Keys.F5;
-            _updateMenuItem.Size = new Size(331, 36);
-            _updateMenuItem.Text = "&Atualizar";
-            _updateMenuItem.Click += _refreshCurrentFolder_Click;
-            // 
-            // _separatorUpdate
-            // 
-            _separatorUpdate.Name = "_separatorUpdate";
-            _separatorUpdate.Size = new Size(328, 6);
-            // 
-            // _copyMenuItem
-            // 
-            _copyMenuItem.Name = "_copyMenuItem";
-            _copyMenuItem.ShortcutKeys = Keys.Control | Keys.C;
-            _copyMenuItem.Size = new Size(331, 36);
-            _copyMenuItem.Text = "&Copiar";
-            _copyMenuItem.Click += _copyMenuItem_Click;
-
-            // 
-            // _copyMenuItem
-            // 
-            _openItemMenuItem.Name = "_openItemMenuItem";
-            _openItemMenuItem.Size = new Size(331, 36);
-            _openItemMenuItem.Text = "&Abrir";
-            _openItemMenuItem.Visible = false;
-            _openItemMenuItem.Click += _openItemMenuItem_Click;
-            // 
-            // _pasteMenuItem
-            // 
-            _pasteMenuItem.Name = "_pasteMenuItem";
-            _pasteMenuItem.ShortcutKeys = Keys.Control | Keys.V;
-            _pasteMenuItem.Size = new Size(331, 36);
-            _pasteMenuItem.Text = "&Colar";
-            _pasteMenuItem.Visible = false;
-            _pasteMenuItem.Click += _pasteMenuItem_Click;
-            // 
-            // _cutMenuItem
-            // 
-            _cutMenuItem.Name = "_cutMenuItem";
-            _cutMenuItem.ShortcutKeys = Keys.Control | Keys.X;
-            _cutMenuItem.Size = new Size(331, 36);
-            _cutMenuItem.Text = "&Recortar";
-            _cutMenuItem.Click += _cutMenuItem_Click;
-            // 
-            // _newFileMenuItem
-            // 
-            _newFileMenuItem.Image = (Image)resources.GetObject("_newFileMenuItem.Image");
-            _newFileMenuItem.ImageScaling = ToolStripItemImageScaling.None;
-            _newFileMenuItem.Name = "_newFileMenuItem";
-            _newFileMenuItem.ShortcutKeys = Keys.Control | Keys.N;
-            _newFileMenuItem.Size = new Size(331, 36);
-            _newFileMenuItem.Text = "&Novo arquivo";
-            _newFileMenuItem.Click += _newFileMenuItem_Click;
-            // 
-            // _newFolderMenuItem
-            // 
-            _newFolderMenuItem.Image = (Image)resources.GetObject("_newFolderMenuItem.Image");
-            _newFolderMenuItem.ImageScaling = ToolStripItemImageScaling.None;
-            _newFolderMenuItem.Name = "_newFolderMenuItem";
-            _newFolderMenuItem.ShortcutKeys = Keys.Control | Keys.D;
-            _newFolderMenuItem.Size = new Size(331, 36);
-            _newFolderMenuItem.Text = "&Novo diretório";
-            _newFolderMenuItem.Click += _newFolderMenuItem_Click;
-            // 
-            // _separatorDelete
-            // 
-            _separatorDelete.Name = "_separatorDelete";
-            _separatorDelete.Size = new Size(328, 6);
-            // 
-            // _deleteMenuItem
-            // 
-            _deleteMenuItem.Image = (Image)resources.GetObject("_deleteMenuItem.Image");
-            _deleteMenuItem.ImageScaling = ToolStripItemImageScaling.None;
-            _deleteMenuItem.Name = "_deleteMenuItem";
-            _deleteMenuItem.ShortcutKeys = Keys.Delete;
-            _deleteMenuItem.Size = new Size(331, 36);
-            _deleteMenuItem.Text = "&Excluir";
-            _deleteMenuItem.Click += _deleteMenuItem_Click;
-            // 
-            // _separatorView
-            // 
-            _separatorView.Name = "_separatorView";
-            _separatorView.Size = new Size(328, 6);
-            // 
-            // _viewMenuItem
-            // 
-            _viewMenuItem.DropDownItems.AddRange(new ToolStripItem[] { _viewSmallIconMenuItem, _viewBigIconMenuItem, _viewListIconMenuItem, _viewDetailsIconMenuItem });
-            _viewMenuItem.Name = "_viewMenuItem";
-            _viewMenuItem.Size = new Size(331, 36);
-            _viewMenuItem.Text = "&Visualizar";
-            _viewMenuItem.Click += _viewMenuItem_Click;
-            // 
-            // _viewSmallIconMenuItem
-            // 
-            _viewSmallIconMenuItem.Name = "_viewSmallIconMenuItem";
-            _viewSmallIconMenuItem.Size = new Size(308, 40);
-            _viewSmallIconMenuItem.Text = "&Arquivos Pequenos";
-            _viewSmallIconMenuItem.Click += _viewSmallIconMenuItem_Click;
-            // 
-            // _viewBigIconMenuItem
-            // 
-            _viewBigIconMenuItem.Name = "_viewBigIconMenuItem";
-            _viewBigIconMenuItem.Size = new Size(308, 40);
-            _viewBigIconMenuItem.Text = "&Arquivos Grandes";
-            _viewBigIconMenuItem.Click += _viewBigIconMenuItem_Click;
-            // 
-            // _viewListIconMenuItem
-            // 
-            _viewListIconMenuItem.Name = "_viewListIconMenuItem";
-            _viewListIconMenuItem.Size = new Size(308, 40);
-            _viewListIconMenuItem.Text = "&Lista";
-            _viewListIconMenuItem.Click += _viewListIconMenuItem_Click;
-            // 
-            // _viewDetailsIconMenuItem
-            // 
-            _viewDetailsIconMenuItem.Name = "_viewDetailsIconMenuItem";
-            _viewDetailsIconMenuItem.Size = new Size(308, 40);
-            _viewDetailsIconMenuItem.Text = "&Detalhes";
-            _viewDetailsIconMenuItem.Click += _viewDetailsIconMenuItem_Click;
-            // 
             // _listStatusStrip
             // 
             _listStatusStrip.ImageScalingSize = new Size(28, 28);
             _listStatusStrip.Items.AddRange(new ToolStripItem[] { _listNameStatusLabel, _listSizeStatusLabel, _listPercentageStatusLabel, _listFoldersStatusLabel, _listFilesStatusLabel, _listBytesStatusLabel, _listLastModifiedStatusLabel });
-            _listStatusStrip.Location = new Point(0, 944);
+            _listStatusStrip.Location = new Point(0, 948);
             _listStatusStrip.Name = "_listStatusStrip";
             _listStatusStrip.Padding = new Padding(2, 0, 47, 0);
             _listStatusStrip.Size = new Size(1541, 39);
@@ -427,14 +272,210 @@ namespace TCloudExplorer
             _listLastModifiedStatusLabel.Size = new Size(133, 30);
             _listLastModifiedStatusLabel.Text = "last modified";
             // 
+            // _listView
+            // 
+            _listView.Columns.AddRange(new ColumnHeader[] { _nameColumn, _sizeColumn, _percentageColumn, _directoriesColumn, _filesColumn, _bytesColumn, _lastModifiedColumn });
+            _listView.ContextMenuStrip = _listViewContextMenu;
+            _listView.Dock = DockStyle.Fill;
+            _listView.FullRowSelect = true;
+            _listView.HideSelection = true;
+            _listView.Location = new Point(0, 0);
+            _listView.Margin = new Padding(10, 16, 10, 16);
+            _listView.Name = "_listView";
+            _listView.Size = new Size(1541, 987);
+            _listView.TabIndex = 0;
+            _listView.UseCompatibleStateImageBehavior = false;
+            _listView.View = View.Details;
+            _listView.ColumnWidthChanged += _listView_ColumnWidthChanged;
+            _listView.DoubleClick += _listView_DoubleClick;
+            _listView.KeyPress += _listView_KeyPress;
+            // 
+            // _bytesColumn
+            // 
+            _bytesColumn.Text = "Bytes";
+            _bytesColumn.TextAlign = HorizontalAlignment.Right;
+            _bytesColumn.Width = 150;
+            // 
+            // _lastModifiedColumn
+            // 
+            _lastModifiedColumn.Text = "Last modified";
+            _lastModifiedColumn.Width = 150;
+            // 
+            // _listViewContextMenu
+            // 
+            _listViewContextMenu.ImageScalingSize = new Size(32, 32);
+            _listViewContextMenu.Items.AddRange(new ToolStripItem[] { _openFolderMenuItem, _openItemMenuItem, _updateMenuItem, _separatorUpdate, _copyMenuItem, _pasteMenuItem, _cutMenuItem, _newFileMenuItem, _newFolderMenuItem, _separatorDelete, _deleteMenuItem, _separatorView, _renameMenuItem, _viewMenuItem });
+            _listViewContextMenu.Name = "_treeViewContextMenu";
+            _listViewContextMenu.Size = new Size(295, 418);
+            _listViewContextMenu.Opening += _listViewContextMenu_Opening;
+            // 
+            // _openFolderMenuItem
+            // 
+            _openFolderMenuItem.Name = "_openFolderMenuItem";
+            _openFolderMenuItem.Size = new Size(294, 36);
+            _openFolderMenuItem.Text = "&Abrir Diretório";
+            _openFolderMenuItem.Visible = false;
+            _openFolderMenuItem.Click += _openFolderMenuItem_Click;
+            // 
+            // _openItemMenuItem
+            // 
+            _openItemMenuItem.Name = "_openItemMenuItem";
+            _openItemMenuItem.Size = new Size(294, 36);
+            _openItemMenuItem.Text = "&Abrir";
+            _openItemMenuItem.Visible = false;
+            _openItemMenuItem.Click += _openItemMenuItem_Click;
+            // 
+            // _updateMenuItem
+            // 
+            _updateMenuItem.Name = "_updateMenuItem";
+            _updateMenuItem.ShortcutKeys = Keys.F5;
+            _updateMenuItem.Size = new Size(294, 36);
+            _updateMenuItem.Text = "&Atualizar";
+            _updateMenuItem.Click += _refreshCurrentFolder_Click;
+            // 
+            // _separatorUpdate
+            // 
+            _separatorUpdate.Name = "_separatorUpdate";
+            _separatorUpdate.Size = new Size(291, 6);
+            // 
+            // _copyMenuItem
+            // 
+            _copyMenuItem.Name = "_copyMenuItem";
+            _copyMenuItem.ShortcutKeys = Keys.Control | Keys.C;
+            _copyMenuItem.Size = new Size(294, 36);
+            _copyMenuItem.Text = "&Copiar";
+            _copyMenuItem.Click += _copyMenuItem_Click;
+            // 
+            // _pasteMenuItem
+            // 
+            _pasteMenuItem.Name = "_pasteMenuItem";
+            _pasteMenuItem.ShortcutKeys = Keys.Control | Keys.V;
+            _pasteMenuItem.Size = new Size(294, 36);
+            _pasteMenuItem.Text = "&Colar";
+            _pasteMenuItem.Visible = false;
+            _pasteMenuItem.Click += _pasteMenuItem_Click;
+            // 
+            // _cutMenuItem
+            // 
+            _cutMenuItem.Name = "_cutMenuItem";
+            _cutMenuItem.ShortcutKeys = Keys.Control | Keys.X;
+            _cutMenuItem.Size = new Size(294, 36);
+            _cutMenuItem.Text = "&Recortar";
+            _cutMenuItem.Click += _cutMenuItem_Click;
+            // 
+            // _newFileMenuItem
+            // 
+            _newFileMenuItem.Image = (Image)resources.GetObject("_newFileMenuItem.Image");
+            _newFileMenuItem.ImageScaling = ToolStripItemImageScaling.None;
+            _newFileMenuItem.Name = "_newFileMenuItem";
+            _newFileMenuItem.ShortcutKeys = Keys.Control | Keys.N;
+            _newFileMenuItem.Size = new Size(294, 36);
+            _newFileMenuItem.Text = "&Novo arquivo";
+            _newFileMenuItem.Click += _newFileMenuItem_Click;
+            // 
+            // _newFolderMenuItem
+            // 
+            _newFolderMenuItem.Image = (Image)resources.GetObject("_newFolderMenuItem.Image");
+            _newFolderMenuItem.ImageScaling = ToolStripItemImageScaling.None;
+            _newFolderMenuItem.Name = "_newFolderMenuItem";
+            _newFolderMenuItem.ShortcutKeys = Keys.Control | Keys.D;
+            _newFolderMenuItem.Size = new Size(294, 36);
+            _newFolderMenuItem.Text = "&Novo diretório";
+            _newFolderMenuItem.Click += _newFolderMenuItem_Click;
+            // 
+            // _separatorDelete
+            // 
+            _separatorDelete.Name = "_separatorDelete";
+            _separatorDelete.Size = new Size(291, 6);
+            // 
+            // _deleteMenuItem
+            // 
+            _deleteMenuItem.Image = (Image)resources.GetObject("_deleteMenuItem.Image");
+            _deleteMenuItem.ImageScaling = ToolStripItemImageScaling.None;
+            _deleteMenuItem.Name = "_deleteMenuItem";
+            _deleteMenuItem.ShortcutKeys = Keys.Delete;
+            _deleteMenuItem.Size = new Size(294, 36);
+            _deleteMenuItem.Text = "&Excluir";
+            _deleteMenuItem.Click += _deleteMenuItem_Click;
+            // 
+            // _separatorView
+            // 
+            _separatorView.Name = "_separatorView";
+            _separatorView.Size = new Size(291, 6);
+            // 
             // _renameMenuItem
             // 
             _renameMenuItem.Name = "_renameMenuItem";
             _renameMenuItem.ShortcutKeys = Keys.F2;
-            _renameMenuItem.Size = new Size(295, 32);
+            _renameMenuItem.Size = new Size(294, 36);
             _renameMenuItem.Text = "&Renomear";
-            _renameMenuItem.Visible = true;
             _renameMenuItem.Click += _renameMenuItem_Click;
+            // 
+            // _viewMenuItem
+            // 
+            _viewMenuItem.DropDownItems.AddRange(new ToolStripItem[] { _viewSmallIconMenuItem, _viewBigIconMenuItem, _viewListIconMenuItem, _viewDetailsIconMenuItem });
+            _viewMenuItem.Name = "_viewMenuItem";
+            _viewMenuItem.Size = new Size(294, 36);
+            _viewMenuItem.Text = "&Visualizar";
+            _viewMenuItem.Click += _viewMenuItem_Click;
+            // 
+            // _viewSmallIconMenuItem
+            // 
+            _viewSmallIconMenuItem.Name = "_viewSmallIconMenuItem";
+            _viewSmallIconMenuItem.Size = new Size(308, 40);
+            _viewSmallIconMenuItem.Text = "&Arquivos Pequenos";
+            _viewSmallIconMenuItem.Click += _viewSmallIconMenuItem_Click;
+            // 
+            // _viewBigIconMenuItem
+            // 
+            _viewBigIconMenuItem.Name = "_viewBigIconMenuItem";
+            _viewBigIconMenuItem.Size = new Size(308, 40);
+            _viewBigIconMenuItem.Text = "&Arquivos Grandes";
+            _viewBigIconMenuItem.Click += _viewBigIconMenuItem_Click;
+            // 
+            // _viewListIconMenuItem
+            // 
+            _viewListIconMenuItem.Name = "_viewListIconMenuItem";
+            _viewListIconMenuItem.Size = new Size(308, 40);
+            _viewListIconMenuItem.Text = "&Lista";
+            _viewListIconMenuItem.Click += _viewListIconMenuItem_Click;
+            // 
+            // _viewDetailsIconMenuItem
+            // 
+            _viewDetailsIconMenuItem.Name = "_viewDetailsIconMenuItem";
+            _viewDetailsIconMenuItem.Size = new Size(308, 40);
+            _viewDetailsIconMenuItem.Text = "&Detalhes";
+            _viewDetailsIconMenuItem.Click += _viewDetailsIconMenuItem_Click;
+            // 
+            // _panelLoading
+            // 
+            _panelLoading.BackColor = SystemColors.Menu;
+            _panelLoading.BackgroundImageLayout = ImageLayout.None;
+            _panelLoading.BorderStyle = BorderStyle.FixedSingle;
+            _panelLoading.Controls.Add(_progressBarLoading);
+            _panelLoading.Controls.Add(_lblInitLoading);
+            _panelLoading.Location = new Point(528, 278);
+            _panelLoading.Name = "_panelLoading";
+            _panelLoading.Size = new Size(681, 189);
+            _panelLoading.TabIndex = 5;
+            // 
+            // _progressBarLoading
+            // 
+            _progressBarLoading.Location = new Point(22, 124);
+            _progressBarLoading.Name = "_progressBarLoading";
+            _progressBarLoading.Size = new Size(636, 40);
+            _progressBarLoading.TabIndex = 2;
+            _progressBarLoading.Visible = false;
+            // 
+            // _lblInitLoading
+            // 
+            _lblInitLoading.AutoSize = true;
+            _lblInitLoading.ImageAlign = ContentAlignment.MiddleLeft;
+            _lblInitLoading.Location = new Point(22, 51);
+            _lblInitLoading.Name = "_lblInitLoading";
+            _lblInitLoading.Size = new Size(0, 30);
+            _lblInitLoading.TabIndex = 1;
+            _lblInitLoading.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // _showDirInExplorerMenuItem
             // 
@@ -470,7 +511,7 @@ namespace TCloudExplorer
             // 
             _topStatusStrip.Dock = DockStyle.Top;
             _topStatusStrip.ImageScalingSize = new Size(28, 28);
-            _topStatusStrip.Items.AddRange(new ToolStripItem[] { _refreshToolButton, _topStatusLabel, _upToolButton });
+            _topStatusStrip.Items.AddRange(new ToolStripItem[] { _refreshToolButton, _upToolButton, toolStripDropDownButton1 });
             _topStatusStrip.Location = new Point(0, 0);
             _topStatusStrip.Name = "_topStatusStrip";
             _topStatusStrip.Padding = new Padding(2, 0, 23, 0);
@@ -482,7 +523,7 @@ namespace TCloudExplorer
             // _refreshToolButton
             // 
             _refreshToolButton.Enabled = false;
-            _refreshToolButton.Image = (Image)resources.GetObject("_refreshToolButton.Image");
+            _refreshToolButton.Image = Resources.refresh;
             _refreshToolButton.ImageTransparentColor = Color.Magenta;
             _refreshToolButton.Margin = new Padding(0, 3, 0, 0);
             _refreshToolButton.Name = "_refreshToolButton";
@@ -492,12 +533,6 @@ namespace TCloudExplorer
             _refreshToolButton.Text = "Atualizar";
             _refreshToolButton.ToolTipText = "Refresh this folder";
             _refreshToolButton.Click += _refreshToolButton_Click;
-            // 
-            // _topStatusLabel
-            // 
-            _topStatusLabel.Name = "_topStatusLabel";
-            _topStatusLabel.Size = new Size(2079, 36);
-            _topStatusLabel.Spring = true;
             // 
             // _upToolButton
             // 
@@ -515,6 +550,15 @@ namespace TCloudExplorer
             _upToolButton.ToolTipText = "Go to parent folder";
             _upToolButton.Click += _upToolButton_Click;
             // 
+            // toolStripDropDownButton1
+            // 
+            toolStripDropDownButton1.Image = Resources.search;
+            toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
+            toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            toolStripDropDownButton1.Size = new Size(149, 41);
+            toolStripDropDownButton1.Text = "Pesquisar";
+            toolStripDropDownButton1.Click += toolStripDropDownButton1_Click;
+            // 
             // _loadingStatusStrip
             // 
             _loadingStatusStrip.Dock = DockStyle.Top;
@@ -531,7 +575,7 @@ namespace TCloudExplorer
             // 
             // _cancelButton
             // 
-            _cancelButton.Image = (Image)resources.GetObject("_cancelButton.Image");
+            _cancelButton.Image = Resources.pause;
             _cancelButton.ImageTransparentColor = Color.Magenta;
             _cancelButton.Margin = new Padding(0, 3, 0, 0);
             _cancelButton.Name = "_cancelButton";
@@ -545,7 +589,7 @@ namespace TCloudExplorer
             // _loadingLabel
             // 
             _loadingLabel.Name = "_loadingLabel";
-            _loadingLabel.Size = new Size(2111, 36);
+            _loadingLabel.Size = new Size(2166, 36);
             _loadingLabel.Spring = true;
             _loadingLabel.Text = "...";
             _loadingLabel.TextAlign = ContentAlignment.MiddleLeft;
@@ -554,13 +598,15 @@ namespace TCloudExplorer
             // 
             AutoScaleDimensions = new SizeF(168F, 168F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new Size(2305, 1073);
+            ClientSize = new Size(2305, 1077);
+            Controls.Add(_panelLoading);
             Controls.Add(_splitContainer);
             Controls.Add(_loadingStatusStrip);
             Controls.Add(_topStatusStrip);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(5);
             Name = "MainForm";
-            Text = "TCloudExplorerV2";
+            Text = "TCloud Explorer";
             Load += Form_Load;
             _splitContainer.Panel1.ResumeLayout(false);
             _splitContainer.Panel1.PerformLayout();
@@ -570,9 +616,11 @@ namespace TCloudExplorer
             _splitContainer.ResumeLayout(false);
             _treeStatusStrip.ResumeLayout(false);
             _treeStatusStrip.PerformLayout();
-            _listViewContextMenu.ResumeLayout(false);
             _listStatusStrip.ResumeLayout(false);
             _listStatusStrip.PerformLayout();
+            _listViewContextMenu.ResumeLayout(false);
+            _panelLoading.ResumeLayout(false);
+            _panelLoading.PerformLayout();
             _topStatusStrip.ResumeLayout(false);
             _topStatusStrip.PerformLayout();
             _loadingStatusStrip.ResumeLayout(false);
@@ -596,6 +644,7 @@ namespace TCloudExplorer
     private ToolStripSeparator _separatorUpdate;
     private ToolStripSeparator _separatorView;
     private ToolStripMenuItem _updateMenuItem;
+    private ToolStripMenuItem _openFolderMenuItem;
     private ToolStripMenuItem _copyMenuItem;
     private ToolStripMenuItem _openItemMenuItem;
     private ToolStripMenuItem _cutMenuItem;
@@ -625,11 +674,14 @@ namespace TCloudExplorer
     private StatusStrip _loadingStatusStrip;
     private ToolStripDropDownButton _cancelButton;
     private ToolStripStatusLabel _loadingLabel;
-    private ToolStripStatusLabel _topStatusLabel;
     private ToolStripDropDownButton _upToolButton;
     private ToolStripStatusLabel _listLastModifiedStatusLabel;
     public ListView _listView;
     private ColumnHeader _bytesColumn;
     private ColumnHeader _lastModifiedColumn;
+    private ToolStripDropDownButton toolStripDropDownButton1;
+    private Panel _panelLoading;
+    private Label _lblInitLoading;
+    private ProgressBar _progressBarLoading;
     }
 }

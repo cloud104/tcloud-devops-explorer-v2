@@ -8,7 +8,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>images\totvs.ico</ApplicationIcon>
     <Title>TCloudExplorer</Title>
-    <Version>0.2.3</Version>
+    <Version>2.0</Version>
     <ApplicationHighDpiMode>DpiUnawareGdiScaled</ApplicationHighDpiMode>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <!--<PublishAot>false</PublishAot>-->
