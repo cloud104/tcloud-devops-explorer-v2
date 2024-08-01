@@ -113,9 +113,10 @@ namespace TCloudExplorer
                 SetInitParameters(Environment.GetCommandLineArgs());
                 foreach (FolderToFilter _folderToFilter in _foldersToFilter)
                 {
-                    ShowOrHideLoadingPanel(true);
-                    UpdateInitLoadingLabel($"Calculando pasta {_folderToFilter.folderName}. Aguarde...");
+                    ShowOrHideLoadingPanelMarquee(true);
+                    UpdateInitLoadingLabel($"Iniciando. Calculando volume da pasta {_folderToFilter.folderName}...");
                     await SetTotalFolders(_folderToFilter.folderName);
+                    ShowOrHideLoadingPanel(true);
                     await LoadSizesAsync(_folderToFilter);
                     ShowOrHideLoadingPanel(false);
                     _lastOpenedPath = Path.GetFullPath(_folderToFilter.folderName);
@@ -172,6 +173,21 @@ namespace TCloudExplorer
             {
                 _panelLoading.Enabled = show;
                 _panelLoading.Visible = show;
+                _progressBarLoading.Style = ProgressBarStyle.Continuous;
+                _progressBarLoading.Enabled = show;
+                _progressBarLoading.Visible = show;
+                _progressBarLoading.Refresh();
+                _panelLoading.Refresh();
+            }));
+        }
+
+        private void ShowOrHideLoadingPanelMarquee(bool show)
+        {
+            Invoke(new Action(() =>
+            {
+                _panelLoading.Enabled = show;
+                _panelLoading.Visible = show;
+                _progressBarLoading.Style = ProgressBarStyle.Marquee;
                 _progressBarLoading.Enabled = show;
                 _progressBarLoading.Visible = show;
                 _progressBarLoading.Refresh();

@@ -7,27 +7,11 @@
       "RelativeMoniker": "D:0:0:{9EFBD025-B6A5-4608-91D3-9AFBF6DACC78}|TCLoudExplorer.csproj|solutionrelative:mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\106739112c966cc39d25dd039145ce9de2cff17182935e358a18dd53276b70ce\\MethodBaseInvoker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\90793c3eb31d7122de8c9fc198b40ef620e753d16ec471ad4ebd91d387ca3092\\ThrowHelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{9EFBD025-B6A5-4608-91D3-9AFBF6DACC78}|TCLoudExplorer.csproj|c:\\code\\tcloud-devops-explorer-v2\\class\\listviewcache.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9EFBD025-B6A5-4608-91D3-9AFBF6DACC78}|TCLoudExplorer.csproj|solutionrelative:class\\listviewcache.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\45558abf292363b6260c2ac82d509821cf8b7db701ef41c521afd31f6e2fa9a1\\FileSystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\eb4300198e3a8b44a445aea1e64bdbd8d18485e1d72548676f988b696042afb7\\ArgumentException.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EFBD025-B6A5-4608-91D3-9AFBF6DACC78}|TCLoudExplorer.csproj|c:\\code\\tcloud-devops-explorer-v2\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EFBD025-B6A5-4608-91D3-9AFBF6DACC78}|TCLoudExplorer.csproj|solutionrelative:mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EFBD025-B6A5-4608-91D3-9AFBF6DACC78}|TCLoudExplorer.csproj|c:\\code\\tcloud-devops-explorer-v2\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{9EFBD025-B6A5-4608-91D3-9AFBF6DACC78}|TCLoudExplorer.csproj|C:\\code\\tcloud-devops-explorer-v2\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{9EFBD025-B6A5-4608-91D3-9AFBF6DACC78}|TCLoudExplorer.csproj|solutionrelative:mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
@@ -38,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -59,71 +43,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "MethodBaseInvoker.cs",
-              "DocumentMoniker": "C:\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\106739112c966cc39d25dd039145ce9de2cff17182935e358a18dd53276b70ce\\MethodBaseInvoker.cs",
-              "RelativeDocumentMoniker": "..\\..\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\106739112c966cc39d25dd039145ce9de2cff17182935e358a18dd53276b70ce\\MethodBaseInvoker.cs",
-              "ToolTip": "C:\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\106739112c966cc39d25dd039145ce9de2cff17182935e358a18dd53276b70ce\\MethodBaseInvoker.cs [Read Only]",
-              "RelativeToolTip": "..\\..\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\106739112c966cc39d25dd039145ce9de2cff17182935e358a18dd53276b70ce\\MethodBaseInvoker.cs [Read Only]",
-              "ViewState": "AQIAAF4AAAAAAAAAAAAiwHQAAAAvAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T03:11:19.096Z",
-              "EditorCaption": " [Read Only]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ThrowHelper.cs",
-              "DocumentMoniker": "C:\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\90793c3eb31d7122de8c9fc198b40ef620e753d16ec471ad4ebd91d387ca3092\\ThrowHelper.cs",
-              "RelativeDocumentMoniker": "..\\..\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\90793c3eb31d7122de8c9fc198b40ef620e753d16ec471ad4ebd91d387ca3092\\ThrowHelper.cs",
-              "ToolTip": "C:\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\90793c3eb31d7122de8c9fc198b40ef620e753d16ec471ad4ebd91d387ca3092\\ThrowHelper.cs [Read Only]",
-              "RelativeToolTip": "..\\..\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\90793c3eb31d7122de8c9fc198b40ef620e753d16ec471ad4ebd91d387ca3092\\ThrowHelper.cs [Read Only]",
-              "ViewState": "AQIAAA8BAAAAAAAAAAAiwDABAAACAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T03:05:33.104Z",
-              "EditorCaption": " [Read Only]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "FileSystem.cs",
-              "DocumentMoniker": "C:\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\45558abf292363b6260c2ac82d509821cf8b7db701ef41c521afd31f6e2fa9a1\\FileSystem.cs",
-              "RelativeDocumentMoniker": "..\\..\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\45558abf292363b6260c2ac82d509821cf8b7db701ef41c521afd31f6e2fa9a1\\FileSystem.cs",
-              "ToolTip": "C:\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\45558abf292363b6260c2ac82d509821cf8b7db701ef41c521afd31f6e2fa9a1\\FileSystem.cs [Read Only]",
-              "RelativeToolTip": "..\\..\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\45558abf292363b6260c2ac82d509821cf8b7db701ef41c521afd31f6e2fa9a1\\FileSystem.cs [Read Only]",
-              "ViewState": "AQIAAOwAAAAAAAAAAAAiwAEBAAADAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T02:22:32.917Z",
-              "EditorCaption": " [Read Only]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ArgumentException.cs",
-              "DocumentMoniker": "C:\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\eb4300198e3a8b44a445aea1e64bdbd8d18485e1d72548676f988b696042afb7\\ArgumentException.cs",
-              "RelativeDocumentMoniker": "..\\..\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\eb4300198e3a8b44a445aea1e64bdbd8d18485e1d72548676f988b696042afb7\\ArgumentException.cs",
-              "ToolTip": "C:\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\eb4300198e3a8b44a445aea1e64bdbd8d18485e1d72548676f988b696042afb7\\ArgumentException.cs [Read Only]",
-              "RelativeToolTip": "..\\..\\Users\\emerson.paula\\AppData\\Local\\Temp\\.vsdbgsrc\\eb4300198e3a8b44a445aea1e64bdbd8d18485e1d72548676f988b696042afb7\\ArgumentException.cs [Read Only]",
-              "ViewState": "AQIAAFMAAAAAAAAAAAAiwGcAAAACAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T02:03:32.54Z",
-              "EditorCaption": " [Read Only]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "MainForm.Designer.cs",
-              "DocumentMoniker": "C:\\code\\tcloud-devops-explorer-v2\\MainForm.Designer.cs",
-              "RelativeDocumentMoniker": "MainForm.Designer.cs",
-              "ToolTip": "C:\\code\\tcloud-devops-explorer-v2\\MainForm.Designer.cs",
-              "RelativeToolTip": "MainForm.Designer.cs",
-              "ViewState": "AQIAAJ8AAAAAAAAAAAAEwLgAAABFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T01:51:03.348Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "ListViewCache.cs",
               "DocumentMoniker": "C:\\code\\tcloud-devops-explorer-v2\\class\\ListViewCache.cs",
               "RelativeDocumentMoniker": "class\\ListViewCache.cs",
@@ -131,12 +50,11 @@
               "RelativeToolTip": "class\\ListViewCache.cs",
               "ViewState": "AQIAADkAAAAAAAAAAAAqwE4AAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T18:57:04.989Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T18:57:04.989Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 2,
               "Title": "MainForm.cs [Design]",
               "DocumentMoniker": "C:\\code\\tcloud-devops-explorer-v2\\MainForm.cs",
               "RelativeDocumentMoniker": "MainForm.cs",
@@ -154,7 +72,7 @@
               "RelativeDocumentMoniker": "MainForm.cs",
               "ToolTip": "C:\\code\\tcloud-devops-explorer-v2\\MainForm.cs",
               "RelativeToolTip": "MainForm.cs",
-              "ViewState": "AQIAAFIDAAAAAAAAAAAmwFwDAAAYAAAA",
+              "ViewState": "AQIAAPgCAAAAAAAAAAAAwAMDAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-24T14:53:40.213Z",
               "EditorCaption": ""
