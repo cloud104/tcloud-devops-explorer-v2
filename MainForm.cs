@@ -298,7 +298,7 @@ namespace TCloudExplorer
                     ClearEmptyTreeNode();
 
                     // Add the root node with its full path
-                    var rootNode = _treeView.Nodes.Add(rootDir.FullName);
+                    var rootNode = _treeView.Nodes.Add(Path.GetDirectoryName(rootDir.FullName));
                     ColorNode(rootNode, rootDir);
 
                     rootNode.Tag = rootDir;
@@ -468,6 +468,11 @@ namespace TCloudExplorer
 
             if (e.Node != null && e.Node.Tag != null)
             {
+                // FIX: não sabemos o porque aqui o Node perde propriedade .Name do primeiro nó
+                if (string.IsNullOrEmpty(e.Node.Name))
+                {
+                    e.Node.Name = e.Node.FullPath;
+                }
                 var dir = (SizeDirectory)e.Node.Tag;
                 _treeStatusLabel.Text = dir.FullName;
                 UpdateInitLoadingLabel("Abrindo pasta...");
@@ -530,6 +535,20 @@ namespace TCloudExplorer
 
                         // Adicionar o item ao ListView
                         _listView.Items.Add(fileItem);
+                    }
+                }
+
+                if (e is SelectedTreeViewEventArgs)
+                {
+                    SelectedTreeViewEventArgs selectedTreeViewEventArgs = (SelectedTreeViewEventArgs)e;
+                    if (selectedTreeViewEventArgs.SelectedItem != null)
+                    {
+                        _treeView.SelectedNode = selectedTreeViewEventArgs.Node;
+                        _treeView.SelectedNode.Expand();
+                        _treeView.SelectedNode.EnsureVisible();
+                        ListViewItem[] _selectedOnSearch = _listView.Items.Find(selectedTreeViewEventArgs.SelectedItem.Name, false);
+                        _selectedOnSearch[0].EnsureVisible();
+                        _selectedOnSearch[0].Selected = true;
                     }
                 }
 
@@ -770,12 +789,7 @@ namespace TCloudExplorer
                             if (string.IsNullOrEmpty(folder))
                                 continue;
 
-                            string folderPath = folder;
-                            if (!folderPath.EndsWith("\\"))
-                            {
-                                folderPath += "\\";
-                            }
-                            _foldersToFilter.Add(new FolderToFilter(folderPath, 0));
+                            _foldersToFilter.Add(new FolderToFilter(Path.GetFullPath(folder), 0));
                             _totalFoldersToFilter++;
                         }
                     }
@@ -807,7 +821,7 @@ namespace TCloudExplorer
                             string cachedFolder = aux;
                             if (!cachedFolder.EndsWith("\\"))
                             {
-                                cachedFolder += "\\";
+                                cachedFolder = Path.Join(cachedFolder, aux);
                             }
                             _cacheFolders.Add(cachedFolder);
                         }
@@ -1007,7 +1021,7 @@ namespace TCloudExplorer
             }
 
             TreeNode selectedFolder = GetSelectedNodeTree();
-            string newNameFullPath = Path.Combine(selectedFolder.FullPath, newName);
+            string newNameFullPath = Path.Combine(Path.GetFullPath(selectedFolder.FullPath), newName);
 
             if (!Utils.IsValidFileName(newName))
             {
@@ -1057,6 +1071,7 @@ namespace TCloudExplorer
         public void DeleteItem(SizeItem sizeItem)
         {
             string selectedItem = sizeItem.FullName;
+            TreeNode selectedNode = GetSelectedNodeTree();
 
             // remove o item da listview
             foreach (ListViewItem item in _listView.Items)
@@ -1072,7 +1087,7 @@ namespace TCloudExplorer
             {
                 SizeDirectory sizeDirectory = (SizeDirectory)sizeItem;
                 TreeNode[] treeToRemove = _treeView.Nodes.Find(selectedItem, true);
-                SizeDirectory parentSizeDir = (SizeDirectory)_treeView.SelectedNode.Tag;
+                SizeDirectory parentSizeDir = (SizeDirectory)selectedNode.Tag;
                 parentSizeDir.Directories.Remove(sizeDirectory);
                 treeToRemove[0].Remove();
                 // remove diretório
@@ -1081,12 +1096,18 @@ namespace TCloudExplorer
             else if (File.Exists(selectedItem))
             {
                 SizeFile sizeFile = (SizeFile)sizeItem;
-                SizeDirectory parentSizeDir = (SizeDirectory)_treeView.SelectedNode.Tag;
+                SizeDirectory parentSizeDir = (SizeDirectory)selectedNode.Tag;
+
+                try
+                {
+                    File.Delete(selectedItem);
+                }
+                catch (IOException)
+                {
+                    MessageBox.Show("Não foi possível excluir o arquivo. Ele está sendo usado por outro processo. Atualize esta pasta clicando em 'Atualizar' e tente novamente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 parentSizeDir.Files.Remove(sizeFile);
-                // Fecha todos os handles associados ao arquivo
-                File.WriteAllText(selectedItem, String.Empty);
-                // remove arquivo
-                File.Delete(selectedItem);
             }
 
             /*
@@ -1147,11 +1168,22 @@ namespace TCloudExplorer
 
         public void _openFolderMenuItem_Click(object sender, EventArgs e)
         {
+            TreeNode destinationNode = new TreeNode();
+            if (_treeView.Nodes == null || _treeView.Nodes.Count == 0)
+            {
+                MessageBox.Show("Selecione um item para abrir no Explorer.", "Seleção Inválida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (_listView.SelectedItems != null && _listView.SelectedItems.Count > 0)
             {
                 SizeFile sizeFile = (SizeFile)_listView.SelectedItems[0].Tag;
                 string rootPath = Path.GetDirectoryName(sizeFile.FullName);
-                this._treeView.SelectedNode = _treeView.Nodes.Find(rootPath, true)[0];
+                TreeNode[] foundNodes = _treeView.Nodes.Find(rootPath, true);
+                if (foundNodes.Length > 0)
+                {
+                    destinationNode = foundNodes[0];
+                }
             }
             else if (_listView.SelectedItems.Count > 1)
             {
@@ -1163,6 +1195,10 @@ namespace TCloudExplorer
                 MessageBox.Show("Selecione um item para abrir no Explorer.", "Seleção Inválida", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            this._treeView.SelectedNode.EnsureVisible();
+            var _auxEventArgs = new SelectedTreeViewEventArgs(destinationNode, _listView.SelectedItems[0]);
+            _treeView_AfterSelect(sender, _auxEventArgs);
         }
 
         public void _openItemMenuItem_Click(object sender, EventArgs e)
@@ -1445,7 +1481,14 @@ namespace TCloudExplorer
                         MessageBox.Show("Não é possível criar um arquivo sem extensão!", "Formato Incorreto", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    File.Move(sizeFile.FullName, newPath);
+                    try {
+                        File.Move(sizeFile.FullName, newPath);
+                    } catch (IOException)
+                    {
+                        MessageBox.Show("Não foi possível renomear o arquivo. Ele está sendo usado por outro processo. Atualize esta pasta clicando em 'Atualizar' e tente novamente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    
                     this._listViewCache.Update(Path.GetDirectoryName(sizeFile.FullName), CreateListViewItem(newName, newPath, (SizeDirectory)GetSelectedNodeTree().Tag, TYPE_FILE));
                 }
                 else
@@ -1698,14 +1741,33 @@ namespace TCloudExplorer
         private async Task<List<ListViewItem>> SearchItemsRecursive(string directory, string itemToSearch, List<ListViewItem> results)
         {
             itemToSearch = itemToSearch.ToLower();
-            List<string> files = Directory.GetFiles(directory).ToList();
-            foreach (string file in files)
+
+            if (itemToSearch.StartsWith("*."))
             {
-                if (Path.GetFileName(file).ToLower().Contains(itemToSearch))
+                string extension = itemToSearch.Trim('*');
+                List<string> files = Directory.GetFiles(directory).ToList();
+                foreach (string file in files)
                 {
-                    if (IsExtensionAllowed(Path.GetExtension(file)))
+                    if (Path.GetExtension(file).ToLower() == extension)
                     {
-                        results.Add(CreateListViewItemResultSearch(Path.GetFileName(file), file, (SizeDirectory)GetSelectedNodeTree().Tag, TYPE_FILE));
+                        if (IsExtensionAllowed(Path.GetExtension(file)))
+                        {
+                            results.Add(CreateListViewItemResultSearch(Path.GetFileName(file), file, (SizeDirectory)GetSelectedNodeTree().Tag, TYPE_FILE));
+                        }
+                    }
+                }
+            }
+            else
+            {
+                List<string> files = Directory.GetFiles(directory).ToList();
+                foreach (string file in files)
+                {
+                    if (Path.GetFileName(file).ToLower().Contains(itemToSearch))
+                    {
+                        if (IsExtensionAllowed(Path.GetExtension(file)))
+                        {
+                            results.Add(CreateListViewItemResultSearch(Path.GetFileName(file), file, (SizeDirectory)GetSelectedNodeTree().Tag, TYPE_FILE));
+                        }
                     }
                 }
             }

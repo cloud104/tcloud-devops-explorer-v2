@@ -17,7 +17,7 @@
         protected SizeItem(string fullPath, string rootPath) :
           this(
             Name: Path.GetFileName(fullPath),
-            FullName: fullPath,
+            FullName: Path.GetFullPath(fullPath),
             RelativePath: Path.GetRelativePath(rootPath, fullPath),
             SizeInBytes: 0,
             LastModified: new FileInfo(fullPath).LastWriteTime

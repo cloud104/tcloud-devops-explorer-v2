@@ -2,7 +2,7 @@
   "profiles": {
     "TCloudExplorer": {
       "commandName": "Project",
-      "commandLineArgs": "FoldersToFilter=c:\\temp2;BlackListExtensions=;WhiteListExtensions=;CacheFolders=c:\\temp2"
+      "commandLineArgs": "FoldersToFilter=c:\\temp2\\;BlackListExtensions=;WhiteListExtensions=;"
     }
   }
 }
