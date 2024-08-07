@@ -48,10 +48,7 @@ C:\code\tcloud-explorer-v2-git\tcloud-devops-explorer-v2\obj\Debug\net8.0-window
 C:\code\tcloud-explorer-v2-git\tcloud-devops-explorer-v2\obj\Debug\net8.0-windows7.0\TCLoudExplorer.genruntimeconfig.cache
 C:\code\tcloud-explorer-v2-git\tcloud-devops-explorer-v2\obj\Debug\net8.0-windows7.0\ref\TCLoudExplorer.dll
 C:\code\tcloud-devops-explorer-v2\bin\Debug\net8.0-windows7.0\TCLoudExplorer.exe
-C:\code\tcloud-devops-explorer-v2\bin\Debug\net8.0-windows7.0\TCLoudExplorer.deps.json
-C:\code\tcloud-devops-explorer-v2\bin\Debug\net8.0-windows7.0\TCLoudExplorer.runtimeconfig.json
 C:\code\tcloud-devops-explorer-v2\bin\Debug\net8.0-windows7.0\TCLoudExplorer.dll
-C:\code\tcloud-devops-explorer-v2\bin\Debug\net8.0-windows7.0\TCLoudExplorer.pdb
 C:\code\tcloud-devops-explorer-v2\obj\Debug\net8.0-windows7.0\TCloudExplorer.MainForm.resources
 C:\code\tcloud-devops-explorer-v2\obj\Debug\net8.0-windows7.0\TCLoudExplorer.Properties.Resources.resources
 C:\code\tcloud-devops-explorer-v2\obj\Debug\net8.0-windows7.0\TCLoudExplorer.csproj.GenerateResource.cache
@@ -63,5 +60,8 @@ C:\code\tcloud-devops-explorer-v2\obj\Debug\net8.0-windows7.0\TCLoudExplorer.sou
 C:\code\tcloud-devops-explorer-v2\obj\Debug\net8.0-windows7.0\TCLoudExplorer.dll
 C:\code\tcloud-devops-explorer-v2\obj\Debug\net8.0-windows7.0\refint\TCLoudExplorer.dll
 C:\code\tcloud-devops-explorer-v2\obj\Debug\net8.0-windows7.0\TCLoudExplorer.pdb
+C:\code\tcloud-devops-explorer-v2\bin\Debug\net8.0-windows7.0\TCLoudExplorer.deps.json
+C:\code\tcloud-devops-explorer-v2\bin\Debug\net8.0-windows7.0\TCLoudExplorer.runtimeconfig.json
+C:\code\tcloud-devops-explorer-v2\bin\Debug\net8.0-windows7.0\TCLoudExplorer.pdb
 C:\code\tcloud-devops-explorer-v2\obj\Debug\net8.0-windows7.0\TCLoudExplorer.genruntimeconfig.cache
 C:\code\tcloud-devops-explorer-v2\obj\Debug\net8.0-windows7.0\ref\TCLoudExplorer.dll

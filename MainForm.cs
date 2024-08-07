@@ -195,18 +195,6 @@ namespace TCloudExplorer
             }));
         }
 
-        // Limpa o nó somente se não for algum nó raiz da configuração
-        private void ClearEmptyTreeNode()
-        {
-            foreach (TreeNode node in _treeView.Nodes)
-            {
-                if (node != null && node.Nodes.Count == 0)
-                {
-                    node.Remove();
-                }
-            }
-        }
-
         //private async Task<string> GetToolVersion(string toolName)
         /// <summary>
         /// Carrega as pastas no treeView de forma assíncrona, renderizando também no front em tempo real
@@ -230,10 +218,10 @@ namespace TCloudExplorer
                 var nodeDict = new Dictionary<string, TreeNode>(StringComparer.OrdinalIgnoreCase);
 
                 // Add the root path as the only node
-                ClearEmptyTreeNode();
+                //ClearEmptyTreeNode();
                 TreeNode firstNode = new TreeNode(Path.GetFullPath(folderToFilter.folderName)) { Name = Path.GetFullPath(folderToFilter.folderName) };
                 firstNode.ImageKey = ICON_FOLDER;
-                _treeView.Nodes.Add(firstNode);
+                //_treeView.Nodes.Add(firstNode);
                 nodeDict.Add(firstNode.Text, firstNode);
                 firstNode.Expand();
 
@@ -295,19 +283,15 @@ namespace TCloudExplorer
                     UpdateInitLoadingLabel($"Aguarde...");
 
                     _treeView.BeginUpdate();
-                    ClearEmptyTreeNode();
 
                     // Add the root node with its full path
-                    var rootNode = _treeView.Nodes.Add(Path.GetDirectoryName(rootDir.FullName));
+                    TreeNode rootNode = _treeView.Nodes.Add(Path.GetFullPath(rootDir.FullName));
                     ColorNode(rootNode, rootDir);
-
                     rootNode.Tag = rootDir;
                     AddNodes(rootDir, rootNode);
                     rootNode.Expand();
                     _treeView.SelectedNode = rootNode;
-
                     _treeView.EndUpdate();
-
                     // Update the window title
                     Text = $"{rootDir.FullName} - {_titleBase}";
                 }
@@ -789,7 +773,8 @@ namespace TCloudExplorer
                             if (string.IsNullOrEmpty(folder))
                                 continue;
 
-                            _foldersToFilter.Add(new FolderToFilter(Path.GetFullPath(folder), 0));
+                            string normalizedPath = Path.GetFullPath(folder).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).ToLowerInvariant();
+                            _foldersToFilter.Add(new FolderToFilter(normalizedPath, 0));
                             _totalFoldersToFilter++;
                         }
                     }
@@ -818,12 +803,10 @@ namespace TCloudExplorer
                                                     .ToArray();
                         foreach (var aux in paramTrim)
                         {
-                            string cachedFolder = aux;
-                            if (!cachedFolder.EndsWith("\\"))
-                            {
-                                cachedFolder = Path.Join(cachedFolder, aux);
-                            }
-                            _cacheFolders.Add(cachedFolder);
+                            if (string.IsNullOrEmpty(aux))
+                                continue;
+                            string normalizedPath = Path.GetFullPath(aux).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).ToLowerInvariant();
+                            _cacheFolders.Add(Path.GetFullPath(normalizedPath));
                         }
                     }
                 }

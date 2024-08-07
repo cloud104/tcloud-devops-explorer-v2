@@ -7,19 +7,12 @@
       "RelativeMoniker": "D:0:0:{9EFBD025-B6A5-4608-91D3-9AFBF6DACC78}|TCLoudExplorer.csproj|solutionrelative:mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9EFBD025-B6A5-4608-91D3-9AFBF6DACC78}|TCLoudExplorer.csproj|c:\\code\\tcloud-devops-explorer-v2\\class\\selectedtreevieweventargs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EFBD025-B6A5-4608-91D3-9AFBF6DACC78}|TCLoudExplorer.csproj|solutionrelative:class\\selectedtreevieweventargs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9EFBD025-B6A5-4608-91D3-9AFBF6DACC78}|TCLoudExplorer.csproj|C:\\code\\tcloud-devops-explorer-v2\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{9EFBD025-B6A5-4608-91D3-9AFBF6DACC78}|TCLoudExplorer.csproj|solutionrelative:mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9EFBD025-B6A5-4608-91D3-9AFBF6DACC78}|TCLoudExplorer.csproj|c:\\code\\tcloud-devops-explorer-v2\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9EFBD025-B6A5-4608-91D3-9AFBF6DACC78}|TCLoudExplorer.csproj|solutionrelative:mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\emerson.paula\\AppData\\Local\\SourceServer\\bcc9cdfe69354df9b76dabbeaaac73605bf6cced3163ad92ca5eaee71f9a8865\\MainForm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EFBD025-B6A5-4608-91D3-9AFBF6DACC78}|TCLoudExplorer.csproj|c:\\code\\tcloud-devops-explorer-v2\\class\\sizeitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EFBD025-B6A5-4608-91D3-9AFBF6DACC78}|TCLoudExplorer.csproj|solutionrelative:class\\sizeitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -29,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -49,16 +42,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SelectedTreeViewEventArgs.cs",
-              "DocumentMoniker": "C:\\code\\tcloud-devops-explorer-v2\\class\\SelectedTreeViewEventArgs.cs",
-              "RelativeDocumentMoniker": "class\\SelectedTreeViewEventArgs.cs",
-              "ToolTip": "C:\\code\\tcloud-devops-explorer-v2\\class\\SelectedTreeViewEventArgs.cs",
-              "RelativeToolTip": "class\\SelectedTreeViewEventArgs.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAswAYAAAALAAAA",
+              "DocumentIndex": 0,
+              "Title": "MainForm.cs",
+              "DocumentMoniker": "C:\\code\\tcloud-devops-explorer-v2\\MainForm.cs",
+              "RelativeDocumentMoniker": "MainForm.cs",
+              "ToolTip": "C:\\code\\tcloud-devops-explorer-v2\\MainForm.cs",
+              "RelativeToolTip": "MainForm.cs",
+              "ViewState": "AQIAAPoCAAAAAAAAAAApwBQDAAAVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-06T15:38:40.626Z",
+              "WhenOpened": "2024-08-06T20:35:20.997Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainForm.cs [Design]",
+              "DocumentMoniker": "C:\\code\\tcloud-devops-explorer-v2\\MainForm.cs",
+              "RelativeDocumentMoniker": "MainForm.cs",
+              "ToolTip": "C:\\code\\tcloud-devops-explorer-v2\\MainForm.cs [Design]",
+              "RelativeToolTip": "MainForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-06T20:35:07.289Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
@@ -68,49 +73,9 @@
               "RelativeDocumentMoniker": "MainForm.Designer.cs",
               "ToolTip": "C:\\code\\tcloud-devops-explorer-v2\\MainForm.Designer.cs",
               "RelativeToolTip": "MainForm.Designer.cs",
-              "ViewState": "AQIAAJwAAAAAAAAAAAAtwLMAAAA6AAAA",
+              "ViewState": "AQIAAJwAAAAAAAAAAIAwwLMAAAA6AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-06T15:20:04.745Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MainForm.cs",
-              "DocumentMoniker": "C:\\Users\\emerson.paula\\AppData\\Local\\SourceServer\\bcc9cdfe69354df9b76dabbeaaac73605bf6cced3163ad92ca5eaee71f9a8865\\MainForm.cs",
-              "RelativeDocumentMoniker": "..\\..\\Users\\emerson.paula\\AppData\\Local\\SourceServer\\bcc9cdfe69354df9b76dabbeaaac73605bf6cced3163ad92ca5eaee71f9a8865\\MainForm.cs",
-              "ToolTip": "C:\\Users\\emerson.paula\\AppData\\Local\\SourceServer\\bcc9cdfe69354df9b76dabbeaaac73605bf6cced3163ad92ca5eaee71f9a8865\\MainForm.cs [Read Only]",
-              "RelativeToolTip": "..\\..\\Users\\emerson.paula\\AppData\\Local\\SourceServer\\bcc9cdfe69354df9b76dabbeaaac73605bf6cced3163ad92ca5eaee71f9a8865\\MainForm.cs [Read Only]",
-              "ViewState": "AQIAAKwGAAAAAAAAAAAiwL4GAAARAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-06T13:46:02.728Z",
-              "EditorCaption": " [Read Only]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "SizeItem.cs",
-              "DocumentMoniker": "C:\\code\\tcloud-devops-explorer-v2\\class\\SizeItem.cs",
-              "RelativeDocumentMoniker": "class\\SizeItem.cs",
-              "ToolTip": "C:\\code\\tcloud-devops-explorer-v2\\class\\SizeItem.cs",
-              "RelativeToolTip": "class\\SizeItem.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAswA8AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-06T13:20:20.656Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainForm.cs",
-              "DocumentMoniker": "C:\\code\\tcloud-devops-explorer-v2\\MainForm.cs",
-              "RelativeDocumentMoniker": "MainForm.cs",
-              "ToolTip": "C:\\code\\tcloud-devops-explorer-v2\\MainForm.cs",
-              "RelativeToolTip": "MainForm.cs",
-              "ViewState": "AQIAAAcCAAAAAAAAAAAcwBMCAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-24T14:53:40.213Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-06T15:20:04.745Z"
             }
           ]
         }
